@@ -1,5 +1,5 @@
 //Class to create projects with properties
-class Project {
+export class Project {
     constructor(name, description) {
         this.name = name;
         this.description = description;
