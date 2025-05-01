@@ -1,5 +1,5 @@
-//Todo class
-class Todo {
+//Class to create todos with properties
+export class Todo {
     //Constructor
     constructor(title, description, dueDate, priority, done = false) {
         //Properties
@@ -13,5 +13,10 @@ class Todo {
     //Toggle done
     toggleDone() {
         this.done = !this.done;
+    }
+
+    //Change priority
+    changePriority(newPriority) {
+        this.priority = newPriority;
     }
 }
