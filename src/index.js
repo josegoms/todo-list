@@ -18,7 +18,9 @@ addTodo.addEventListener("click", (event) => {
     const projectName = document.querySelector("#display-todos > h1").textContent;
 
     //Create todo
-    projectName.addTodo(new Todo(title, description, dueDate, priority));
+    if (projectName !== "Today") {
+        projectName.addTodo(new Todo(title, description, dueDate, priority));
+    }
 });
 
 //Create project
