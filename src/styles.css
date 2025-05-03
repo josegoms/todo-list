@@ -96,7 +96,7 @@ body {
     background-color: #333;
 }
 
-#projects p {
+#projects > p {
     color: #A0A0A0;
     font-size: 0.8rem;
     border-bottom: 1px solid #2A2A2A;
@@ -127,6 +127,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: max-content;
   background-color: #1A1A1A;
   padding: 2rem;
   border-radius: 12px;
@@ -178,3 +179,33 @@ body {
   align-items: center;
   gap: 2rem;
 }
+
+#new-project #project-name {
+  margin-right: 2rem;
+}
+
+#new-project > div:nth-child(2) {
+  display: flex;
+  gap: 1rem;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #2A2A2A;
+  border-radius: 6px;
+}
+
+.project h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.project p {
+  font-size: 0.8rem;
+  color: #A0A0A0;
+  border: none;
+}
+

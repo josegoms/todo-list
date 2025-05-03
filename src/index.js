@@ -1,28 +1,10 @@
 import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
+import { displayProjects } from "./display.js";
 
 //Keep projects
 const projects = [];
-
-//Create todo
-/*const addTodo = document.querySelector(".add-todo");
-addTodo.addEventListener("click", (event) => {
-    
-    //Catch user input
-    const formData = new FormData(event.target);
-    const title = formData.get("title");
-    const description = formData.get("description");
-    const dueDate = formData.get("dueDate");
-    const priority = formData.get("priority");
-
-    //Catch the project it's inside
-    const projectName = document.querySelector("#display-todos > h1").textContent;
-
-    //Create new todo and append to respective project
-    const newTodo = new Todo(title, description, dueDate, priority);
-    projectName.addTodo(newTodo);
-});*/
 
 //Create project
 const createProject = document.querySelector("#create-project");
@@ -42,8 +24,14 @@ createProject.addEventListener("click", () => {
         const description = formData.get("project-description");
         
         //Create new project and append to projects
-        const newProject = new Project(name, description);
-        projects.push(newProject);
+        if (name !== "" && description !== "") {
+            const newProject = new Project(name, description);
+            projects.push({ name: newProject.name, description: newProject.description, todos: [] });
+            displayProjects(projects);
+        }
+
+        //Reset forms
+        formsData.reset();
     });
 
     //Cancel dialog
