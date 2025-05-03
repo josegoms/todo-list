@@ -7,6 +7,20 @@
     <title>Todo</title>
 </head>
 <body>
+    <dialog id="project-form">
+        <form method="dialog" id="new-project">
+            <div>
+                <label for="project-name">Name:</label>
+                <input type="text" id="project-name" name="project-name">
+                <label for="project-description">Description:</label>
+                <input type="text" id="project-description" name="project-description">
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <button type="button" class="cancel">Submit</button>
+            </div>
+        </form>
+    </dialog>
     <div id="sidebar">
         <div id="logo"><img src="./assets/Logo_Minimalista_de_Produtividade-removebg-preview.png" alt="Logo"></div>
         <div id="default">
@@ -15,6 +29,8 @@
         </div>
         <div id="projects">
             <p>My projects</p>
+            <button id="create-project">+</button>
+            <div id="projects-container"></div>
         </div>
     </div>
     <div id="display-todos">
