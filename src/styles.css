@@ -206,6 +206,8 @@ body {
 .project p {
   font-size: 0.8rem;
   color: #A0A0A0;
-  border: none;
+
+  display: flex;
+  flex-wrap: wrap;
 }
 

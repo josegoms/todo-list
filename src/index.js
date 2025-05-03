@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
-import { displayProjects } from "./display.js";
+import { displayProjects, changeProjects } from "./display.js";
 
 //Keep projects
 const projects = [];
@@ -36,7 +36,10 @@ createProject.addEventListener("click", () => {
 
     //Cancel dialog
     const cancel = document.querySelector(".cancel");
-    cancel.addEventListener("click", (event) => {
+    cancel.addEventListener("click", () => {
         dialog.close();
     });
 });
+
+
+changeProjects();

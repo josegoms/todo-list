@@ -22,6 +22,28 @@ export function displayProjects(projects) {
     });
 }
 
+export function changeProjects() {
+    const projects = document.querySelectorAll(".project");
+
+    projects.forEach((project) => {
+        project.addEventListener("click", () => {
+            const todos = document.querySelector("#display-todos");
+            todos.innerHTML = "";
+
+            const projectName = project.querySelector("h2").textContent;
+            const projectDescription = project.querySelector("p:first-child").textContent;
+
+            const title = document.createElement("h1");
+            title.textContent = projectName;
+            todos.appendChild(title);
+
+            const description = document.createElement("p");
+            description.textContent = projectDescription;
+            todos.appendChild(description);
+        });
+    });
+}
+
 
 
 
