@@ -6,7 +6,7 @@ import { Project } from "./project.js";
 const projects = [];
 
 //Create todo
-const addTodo = document.querySelector(".add-todo");
+/*const addTodo = document.querySelector(".add-todo");
 addTodo.addEventListener("click", (event) => {
     
     //Catch user input
@@ -22,7 +22,7 @@ addTodo.addEventListener("click", (event) => {
     //Create new todo and append to respective project
     const newTodo = new Todo(title, description, dueDate, priority);
     projectName.addTodo(newTodo);
-});
+});*/
 
 //Create project
 const createProject = document.querySelector("#create-project");

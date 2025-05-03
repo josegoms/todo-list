@@ -67,7 +67,7 @@ body {
     border-right: 1px solid #2A2A2A;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1.5rem;
 
     padding: 1rem;
     color: #E0E0E0;
@@ -106,4 +106,75 @@ body {
 #logo {
   width: 12rem;
   object-fit: cover;
+}
+
+#projects > button {
+    background-color: transparent;
+    color: #A0A0A0;
+    border: none;
+    margin: 0.5rem;
+    padding: 0.5rem 6rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#projects > button:hover {
+    background-color: #333;
+}
+
+#project-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1A1A1A;
+  padding: 2rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  z-index: 1000;
+  color: #E0E0E0;
+}
+
+#project-form input {
+  background-color: #2A2A2A;
+  border: 1px solid #444;
+  color: #E0E0E0;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+#project-form input:focus {
+  border-color: #2A2A2A;
+  outline: none;
+}
+
+#project-form button {
+  border-radius: 6px;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#project-form button[type="submit"] {
+  border: 1px solid #444;
+  background-color: transparent;
+  color: #E0E0E0;
+}
+
+#project-form button[type="submit"]:hover {
+  background-color: #333;
+}
+
+#project-form button.cancel {
+  border: none;
+  background-color: red;
+  color: #E0E0E0;
+}
+
+#new-project {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
