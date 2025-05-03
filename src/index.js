@@ -40,6 +40,3 @@ createProject.addEventListener("click", () => {
         dialog.close();
     });
 });
-
-
-changeProjects();

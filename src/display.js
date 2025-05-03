@@ -5,6 +5,7 @@ export function displayProjects(projects) {
     projects.forEach((project) => {
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
+        projectDiv.dataset.idName = project.name;
         
         const projectName = document.createElement("h2");
         projectName.textContent = project.name;
@@ -18,30 +19,37 @@ export function displayProjects(projects) {
         projectTodos.textContent = `${project.todos.length} todos`;
         projectDiv.appendChild(projectTodos);
 
+        projectDiv.addEventListener("click", (event) => {
+
+            const clickedProject = event.currentTarget;
+            const clickedName = clickedProject.dataset.idName;
+            console.log(event.target);
+
+            const matchingProject = projects.find((project) => project.name === clickedName);
+            console.log(matchingProject);
+
+            if(matchingProject) {
+                changeProjects(matchingProject);
+            }
+        });
+
         container.appendChild(projectDiv);
     });
 }
 
-export function changeProjects() {
-    const projects = document.querySelectorAll(".project");
+export function changeProjects(selectedProject) {
 
-    projects.forEach((project) => {
-        project.addEventListener("click", () => {
-            const todos = document.querySelector("#display-todos");
-            todos.innerHTML = "";
+    const todos = document.querySelector("#display-todos");
+    todos.innerHTML = "";
+    
+    console.log(selectedProject);
+    const projectTitle = document.createElement("h1");
+    projectTitle.textContent = selectedProject.name;
+    todos.appendChild(projectTitle);
 
-            const projectName = project.querySelector("h2").textContent;
-            const projectDescription = project.querySelector("p:first-child").textContent;
-
-            const title = document.createElement("h1");
-            title.textContent = projectName;
-            todos.appendChild(title);
-
-            const description = document.createElement("p");
-            description.textContent = projectDescription;
-            todos.appendChild(description);
-        });
-    });
+    const projectDescription = document.createElement("p");
+    projectDescription.textContent = selectedProject.description;
+    todos.appendChild(projectDescription);
 }
 
 
