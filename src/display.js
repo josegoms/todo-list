@@ -1,34 +1,43 @@
-import { Project } from "./project.js";
+//Deal with display projects on sidebar and append event listener to each one
+export function displayProjects(projects, callback) {
 
-export function displayProjects(projects) {
+    //Select container to append projects
     const container = document.querySelector("#projects-container");
     container.innerHTML = "";
 
     projects.forEach((project) => {
+
+        //Create project main container
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
         projectDiv.dataset.idName = project.name;
 
+        //Create project elements div
         const contentDivisor = document.createElement("div");
         contentDivisor.classList.add("content-divisor");
         projectDiv.appendChild(contentDivisor);
         
+        //Create project name element 
         const projectName = document.createElement("h2");
         projectName.textContent = project.name;
         contentDivisor.appendChild(projectName);
 
+        //Create project description element
         const projectDescription = document.createElement("p");
         projectDescription.textContent = project.description;
         contentDivisor.appendChild(projectDescription);
 
+        //Create project todos element
         const projectTodos = document.createElement("p");
         projectTodos.textContent = `${project.todos.length} todos`;
         contentDivisor.appendChild(projectTodos);
 
+        //Create project icon div
         const iconDivisor = document.createElement("div");
         iconDivisor.classList.add("icon-divisor");
         projectDiv.appendChild(iconDivisor);
 
+        //Create project remove button
         const projectRemove = document.createElement("button");
         projectRemove.classList.add("remove-project");
         projectRemove.title = "Remove";
@@ -38,6 +47,7 @@ export function displayProjects(projects) {
             </svg>`;
         iconDivisor.appendChild(projectRemove);
 
+        //Create project edit button
         const projectEdit = document.createElement("button");
         projectEdit.classList.add("edit-project");
         projectEdit.title = "Edit";
@@ -48,65 +58,78 @@ export function displayProjects(projects) {
             </svg>`;
         iconDivisor.appendChild(projectEdit);
 
-        projectDiv.addEventListener("click", (event) => {
+        //Add select project event listener
+        projectDiv.addEventListener("click", (event) => changeProjects(event, projects));
 
-            const clickedProject = event.currentTarget;
-            const clickedName = clickedProject.dataset.idName;
+        //Add remove project event listener
+        projectRemove.addEventListener("click", (event) => deleteProject(event, projects));
 
-            const matchingProject = projects.find((project) => project.name === clickedName);
-
-            if(matchingProject) {
-                changeProjects(matchingProject);
-            }
-        });
-
-        projectRemove.addEventListener("click", (event) => {
-            const clickedProject = event.currentTarget;
-            const clickedName = clickedProject.parentNode.parentNode.dataset.idName;
-            const matchingProjectIndex = projects.findIndex((project) => project.name === clickedName);
-            projects.splice(matchingProjectIndex, 1);
-            displayProjects(projects);
-        });
-
+        //Add edit project event listener
         projectEdit.addEventListener("click", (event) => {
+
+            //Catch selected project
             const clickedProject = event.currentTarget;
             const clickedName = clickedProject.parentNode.parentNode.dataset.idName;
+
+            //Check selected project with all projects, and find its index
             const matchingProjectIndex = projects.findIndex((project) => project.name === clickedName);
 
-            const dialog = document.querySelector("#project-form");
-            dialog.showModal();
+            //Call callback
+            if (typeof callback === "function") {
+                callback(matchingProjectIndex);
+              }
+        });
 
-            const formsData = document.querySelector("#new-project");
-            formsData.addEventListener("submit", (event) => {
-                const formData = new FormData(event.target);
-                const name = formData.get("project-name");
-                const description = formData.get("project-description");
-                console.log(matchingProjectIndex);
-                projects[matchingProjectIndex].editProject(name, description);
-                console.log(projects);
-                displayProjects(projects);
-            });
-        })
-
+        //Append project to container
         container.appendChild(projectDiv);
     });
 }
 
-export function changeProjects(selectedProject) {
+//Handle display project on right-side
+function changeProjects(eventData, projectsAll) {
 
+    //Catch selected project
+    const clickedProject = eventData.currentTarget;
+    const clickedName = clickedProject.dataset.idName
+
+    //Check selected project with all projects
+    const matchingProject = projectsAll.find((project) => project.name === clickedName)
+
+    //Clear right-side
     const todos = document.querySelector("#display-todos");
     todos.innerHTML = "";
     
-    console.log(selectedProject);
+    //Check if selected project exists
+    if (!matchingProject) {
+        return;
+    }
+
+    //Display selected project name
     const projectTitle = document.createElement("h1");
-    projectTitle.textContent = selectedProject.name;
+    projectTitle.textContent = matchingProject.name;
     todos.appendChild(projectTitle);
 
+    //Display selected project description
     const projectDescription = document.createElement("p");
-    projectDescription.textContent = selectedProject.description;
+    projectDescription.textContent = matchingProject.description;
     todos.appendChild(projectDescription);
 }
 
+function deleteProject(eventData, projectsAll) {
+
+    //Catch selected project
+    const clickedProject = eventData.currentTarget;
+    const clickedName = clickedProject.parentNode.parentNode.dataset.idName;
+
+    //Check selected project with all projects, and find its index
+    const matchingProjectIndex = projectsAll.findIndex((project) => project.name === clickedName);
+
+    //Remove project
+    projectsAll.splice(matchingProjectIndex, 1);
+
+    //Call function that handles display to renew projects
+    displayProjects(projectsAll);
+}
 
 
 

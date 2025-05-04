@@ -1,42 +1,80 @@
 import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
-import { displayProjects, changeProjects } from "./display.js";
+import { displayProjects } from "./display.js";
 
 //Keep projects
 const projects = [];
 
 //Create project
 const createProject = document.querySelector("#create-project");
-createProject.addEventListener("click", () => {
+createProject.addEventListener("click", () => openDialog());
 
+//Handle dialog
+function openDialog(projectToEdit = null, onSubmitCallback = null) {
     //Call dialog
     const dialog = document.querySelector("#project-form");
     dialog.showModal();
 
+    //Select input areas
+    const projectName = document.querySelector("#project-name");
+    const projectDescription = document.querySelector("#project-description");
+
+    //Edit project
+    if (projectToEdit) {
+        projectName.value = projectToEdit.name;
+        projectDescription.value = projectToEdit.description;
+    } else {
+        projectName.value = "";
+        projectDescription.value = "";
+    }
+
     //Catch user input
     const formsData = document.querySelector("#new-project");
-    formsData.addEventListener("submit", (event) => {
+    formsData.onsubmit = (event) => {
+        event.preventDefault();
         
         //Catch user input
         const formData = new FormData(event.target);
         const name = formData.get("project-name");
         const description = formData.get("project-description");
         
-        //Create new project and append to projects
-        if (name !== "" && description !== "") {
+        //Create new project and append to projects or edit existent one
+        if (projectToEdit) {
+            projectToEdit.name = name;
+            projectToEdit.description = description;
+        } else {
             const newProject = new Project(name, description);
-            projects.push({ name: newProject.name, description: newProject.description, todos: [] });
-            displayProjects(projects);
+            projects.push({
+                name: newProject.name,
+                description: newProject.description,
+                todos: [],
+            });
         }
 
-        //Reset forms
+        //Re-render and call optional callback
+        displayProjects(projects, editCallback);
+        if(typeof onSubmitCallback === "function") {
+            onSubmitCallback(name, description);
+        }
+
+        //Reset forms and close
         formsData.reset();
-    });
+        dialog.close();
+    };
 
     //Cancel dialog
     const cancel = document.querySelector(".cancel");
     cancel.addEventListener("click", () => {
         dialog.close();
     });
-});
+}
+
+
+//Edit project
+const editCallback = (index) => {
+    const projectToEdit = projects[index];
+    openDialog(projectToEdit);
+}
+
+displayProjects(projects, editCallback);

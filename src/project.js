@@ -17,9 +17,4 @@ export class Project {
     removeTodo(index) {
         this.todos.splice(index, 1);
     }
-
-    editProject(name, description) {
-        this.name = name;
-        this.description = description;
-    }
 }
