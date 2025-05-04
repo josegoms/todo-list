@@ -59,7 +59,15 @@ export function displayProjects(projects, callback) {
         iconDivisor.appendChild(projectEdit);
 
         //Add select project event listener
-        projectDiv.addEventListener("click", (event) => changeProjects(event, projects));
+        projectDiv.addEventListener("click", (event) => {
+
+            //Catch selected project
+            const clickedProject = event.currentTarget;
+            const clickedName = clickedProject.dataset.idName;
+
+            //Call display function
+            changeProjects(clickedName, projects);
+        });
 
         //Add remove project event listener
         projectRemove.addEventListener("click", (event) => deleteProject(event, projects));
@@ -86,14 +94,10 @@ export function displayProjects(projects, callback) {
 }
 
 //Handle display project on right-side
-function changeProjects(eventData, projectsAll) {
-
-    //Catch selected project
-    const clickedProject = eventData.currentTarget;
-    const clickedName = clickedProject.dataset.idName
+export function changeProjects(eventData, projectsAll) {
 
     //Check selected project with all projects
-    const matchingProject = projectsAll.find((project) => project.name === clickedName)
+    const matchingProject = projectsAll.find((project) => project.name === eventData);
 
     //Clear right-side
     const todos = document.querySelector("#display-todos");

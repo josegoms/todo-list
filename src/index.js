@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
-import { displayProjects } from "./display.js";
+import { displayProjects, changeProjects } from "./display.js";
 
 //Keep projects
 const projects = [];
@@ -11,7 +11,7 @@ const createProject = document.querySelector("#create-project");
 createProject.addEventListener("click", () => openDialog());
 
 //Handle dialog
-function openDialog(projectToEdit = null, onSubmitCallback = null) {
+function openDialog(projectToEdit = null) {
     //Call dialog
     const dialog = document.querySelector("#project-form");
     dialog.showModal();
@@ -20,7 +20,7 @@ function openDialog(projectToEdit = null, onSubmitCallback = null) {
     const projectName = document.querySelector("#project-name");
     const projectDescription = document.querySelector("#project-description");
 
-    //Edit project
+    //Pre-fill form if editing
     if (projectToEdit) {
         projectName.value = projectToEdit.name;
         projectDescription.value = projectToEdit.description;
@@ -31,7 +31,12 @@ function openDialog(projectToEdit = null, onSubmitCallback = null) {
 
     //Catch user input
     const formsData = document.querySelector("#new-project");
-    formsData.onsubmit = (event) => {
+
+    //Clear previous listener
+    const newForm = formsData.cloneNode(true);
+    formsData.replaceWith(newForm);
+
+    newForm.addEventListener("submit", (event) => {
         event.preventDefault();
         
         //Catch user input
@@ -52,22 +57,16 @@ function openDialog(projectToEdit = null, onSubmitCallback = null) {
             });
         }
 
-        //Re-render and call optional callback
+        //Re-render, reset forms, and close
         displayProjects(projects, editCallback);
-        if(typeof onSubmitCallback === "function") {
-            onSubmitCallback(name, description);
-        }
-
-        //Reset forms and close
-        formsData.reset();
+        changeProjects(name, projects);
+        newForm.reset();
         dialog.close();
-    };
+    });
 
     //Cancel dialog
     const cancel = document.querySelector(".cancel");
-    cancel.addEventListener("click", () => {
-        dialog.close();
-    });
+    cancel.addEventListener("click", () => dialog.close());
 }
 
 
