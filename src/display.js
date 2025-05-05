@@ -117,6 +117,12 @@ export function changeProjects(eventData, projectsAll) {
     const projectDescription = document.createElement("p");
     projectDescription.textContent = matchingProject.description;
     todos.appendChild(projectDescription);
+
+    //Display new task button
+    const newTask = document.createElement("button");
+    newTask.classList.add("new-task");
+    newTask.textContent = "+ New task";
+    todos.appendChild(newTask);
 }
 
 function deleteProject(eventData, projectsAll) {

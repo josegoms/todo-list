@@ -268,6 +268,24 @@ body {
 }
 
 #display-todos > p {
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: #A0A0A0;
+}
+
+.new-task {
+  margin: 1rem 0;
+  align-self: flex-start;
+  background-color: #00BFFF;
+  color: #121212;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+
+.new-task:hover {
+  background-color: #1EC4FF;
 }
