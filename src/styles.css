@@ -272,7 +272,7 @@ body {
   color: #A0A0A0;
 }
 
-.new-task {
+.create-task {
   margin: 1rem 0;
   align-self: flex-start;
   background-color: #00BFFF;
@@ -286,6 +286,6 @@ body {
 }
 
 
-.new-task:hover {
+.create-task:hover {
   background-color: #1EC4FF;
 }

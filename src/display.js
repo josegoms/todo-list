@@ -102,6 +102,7 @@ export function changeProjects(eventData, projectsAll) {
     //Clear right-side
     const todos = document.querySelector("#display-todos");
     todos.innerHTML = "";
+    todos.dataset.idName = matchingProject.name;
     
     //Check if selected project exists
     if (!matchingProject) {
@@ -120,7 +121,7 @@ export function changeProjects(eventData, projectsAll) {
 
     //Display new task button
     const newTask = document.createElement("button");
-    newTask.classList.add("new-task");
+    newTask.classList.add("create-task");
     newTask.textContent = "+ New task";
     todos.appendChild(newTask);
 }

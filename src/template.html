@@ -11,9 +11,31 @@
         <form method="dialog" id="new-project">
             <div>
                 <label for="project-name">Name:</label>
-                <input type="text" id="project-name" name="project-name" autofocus>
+                <input type="text" id="project-name" name="project-name" autofocus required>
                 <label for="project-description">Description:</label>
-                <input type="text" id="project-description" name="project-description">
+                <input type="text" id="project-description" name="project-description" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="task-form">
+        <form method="dialog" id="new-task">
+            <div>
+                <label for="task-name">Name:</label>
+                <input type="text" id="task-name" name="task-name">
+                <label for="task-description">Description:</label>
+                <input type="text" id="task-description" name="task-description">
+                <label for="task-priority">Priority:</label>
+                <select name="task-priority" id="task-priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <label for="task-due-date">Due date:</label>
+                <input type="date" id="task-due-date" name="task-due-date">
             </div>
             <div>
                 <button type="submit">Submit</button>

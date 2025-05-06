@@ -14,9 +14,4 @@ export class Todo {
     toggleDone() {
         this.done = !this.done;
     }
-
-    //Change priority
-    changePriority(newPriority) {
-        this.priority = newPriority;
-    }
 }
