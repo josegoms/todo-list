@@ -102,7 +102,7 @@ export function createTodoElement(todo, index) {
     //Create todo priority element
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${todo.priority}`;
-    todosDiv.appendChild(priority);
+    contentDiv.appendChild(priority);
 
     //Create todo status element
     const status = document.createElement("p");

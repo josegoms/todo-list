@@ -126,7 +126,8 @@ body {
 }
 
 #project-form,
-#todo-form {
+#todo-form,
+#todo-detail-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -222,13 +223,15 @@ body {
   background-color: #2A2A2A;
 }
 
-.icon-divisor {
+.icon-divisor,
+.todo-action {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.icon-divisor button {
+.icon-divisor button,
+.todo-action button {
   background: none;
   border: none;
   padding: 0.25rem;
@@ -237,7 +240,8 @@ body {
   transition: color 0.2s;
 }
 
-.icon-divisor button:hover {
+.icon-divisor button:hover,
+.todo-action button {
   color: #FFF;
 }
 
@@ -256,6 +260,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 10rem;
+}
+
+.content-divisor {
+  border-right: 1px solid #2A2A2A;
 }
 
 #workspace {
@@ -294,4 +302,24 @@ body {
 
 .add-todo:hover {
   background-color: #1EC4FF;
+}
+
+.todo {
+  background-color: #2A2A2A;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  color: #DADADA;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.todo:hover {
+  background-color: #333;
+}
+
+.todo-action {
+  border-left: 1px solid #2A2A2A;
 }
