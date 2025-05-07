@@ -6,7 +6,6 @@ import { renderProjects, createTodoElement } from "./display.js";
 
 //Keep projects
 const projects = [];
-let currentProject = null;
 
 function displayAllProjects() {
     //Select DOM container
@@ -26,9 +25,9 @@ function displayAllProjects() {
                 onSubmit: ({name, description}) => {
                     project.name = name;
                     project.description = description;
+                    displayAllProjects();
                 }
             });
-            displayAllProjects();
         });
     });
 
@@ -51,7 +50,6 @@ function displayAllProjects() {
 }
 
 function displayWorkspace(project) {
-    currentProject = project;
 
     //Select main container
     const container = document.querySelector("#workspace");
@@ -59,18 +57,18 @@ function displayWorkspace(project) {
 
     //Project name
     const name = document.createElement("h2");
-    name.textContent = currentProject.name;
+    name.textContent = project.name;
     container.appendChild(name);
 
     //Project description
     const description = document.createElement("p");
-    description.textContent = currentProject.description;
+    description.textContent = project.description;
     container.appendChild(description);
 
     //Add new todo button
     const addButton = document.createElement("button");
     addButton.classList.add("add-todo");
-    addButton.textContent = "Add Todo";
+    addButton.textContent = " + Add Todo";
     container.appendChild(addButton);
 
     //Create todos container
@@ -79,7 +77,7 @@ function displayWorkspace(project) {
     container.appendChild(todosContainer);
 
     //Loop over todos
-    currentProject.todos.forEach((todo, index) => {
+    project.todos.forEach((todo, index) => {
         const todoElement = createTodoElement(todo, index);
         todosContainer.appendChild(todoElement);
     });
