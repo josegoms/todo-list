@@ -21,21 +21,21 @@
             </div>
         </form>
     </dialog>
-    <dialog id="task-form">
-        <form method="dialog" id="new-task">
+    <dialog id="todo-form">
+        <form method="dialog" id="new-todo">
             <div>
-                <label for="task-name">Name:</label>
-                <input type="text" id="task-name" name="task-name">
-                <label for="task-description">Description:</label>
-                <input type="text" id="task-description" name="task-description">
-                <label for="task-priority">Priority:</label>
-                <select name="task-priority" id="task-priority">
+                <label for="todo-name">Name:</label>
+                <input type="text" id="todo-name" name="todo-name">
+                <label for="todo-description">Description:</label>
+                <input type="text" id="todo-description" name="todo-description">
+                <label for="todo-priority">Priority:</label>
+                <select name="todo-priority" id="todo-priority">
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
                     <option value="low">Low</option>
                 </select>
-                <label for="task-due-date">Due date:</label>
-                <input type="date" id="task-due-date" name="task-due-date">
+                <label for="todo-due-date">Due date:</label>
+                <input type="date" id="todo-due-date" name="todo-due-date">
             </div>
             <div>
                 <button type="submit">Submit</button>
@@ -55,8 +55,7 @@
             <div id="projects-container"></div>
         </div>
     </div>
-    <div id="display-todos">
-        <div id="todos-container"></div>
+    <div id="workspace">
     </div>
 </body>
 </html>
