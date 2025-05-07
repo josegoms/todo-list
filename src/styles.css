@@ -73,10 +73,6 @@ body {
     color: #E0E0E0;
 }
 
-#workspace {
-    background-color: #121212;
-}
-
 #default {
     display: flex;
     flex-direction: column;
@@ -263,6 +259,7 @@ body {
 }
 
 #workspace {
+  background-color: #121212;
   padding: 2rem;
 
   display: flex;

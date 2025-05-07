@@ -13,7 +13,7 @@
                 <label for="project-name">Name:</label>
                 <input type="text" id="project-name" name="project-name" autofocus required>
                 <label for="project-description">Description:</label>
-                <input type="text" id="project-description" name="project-description" required>
+                <input type="text" id="project-description" name="project-description">
             </div>
             <div>
                 <button type="submit">Submit</button>
@@ -25,7 +25,7 @@
         <form method="dialog" id="new-todo">
             <div>
                 <label for="todo-name">Name:</label>
-                <input type="text" id="todo-name" name="todo-name">
+                <input type="text" id="todo-name" name="todo-name" autofocus required>
                 <label for="todo-description">Description:</label>
                 <input type="text" id="todo-description" name="todo-description">
                 <label for="todo-priority">Priority:</label>
@@ -42,6 +42,13 @@
                 <button type="button" class="cancel">Cancel</button>
             </div>
         </form>
+    </dialog>
+    <dialog id="todo-detail-dialog">
+        <h2 id="detail-title"></h2>
+        <p><strong>Description: </strong><span id="detail-description"></span></p>
+        <p><strong>Due date: </strong><span id="detail-due-date"></span></p>
+        <p><strong>Priority: </strong><span id="detail-priority"></span></p>
+        <button onclick="document.getElementById('todo-detail-dialog').close()">Close</button>
     </dialog>
     <div id="sidebar">
         <div id="logo"><img src="./assets/Logo_Minimalista_de_Produtividade-removebg-preview.png" alt="Logo"></div>

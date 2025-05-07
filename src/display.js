@@ -18,7 +18,7 @@ export function createProjectElement(project, index) {
 
     //Create project description element
     const projectDescription = document.createElement("p");
-    projectDescription.textContent = project.description;
+    projectDescription.textContent = project.description || "--";
     contentDivisor.appendChild(projectDescription);
 
     //Create project todos element
@@ -80,20 +80,24 @@ export function createTodoElement(todo, index) {
     todosDiv.classList.add("todo");
     todosDiv.dataset.index = index;
 
+    //Create content div
+    const contentDiv = document.createElement("div");
+    contentDiv.classList.add("todo-content");
+
     //Create todo title element
     const title = document.createElement("h3");
     title.textContent = todo.title;
-    todosDiv.appendChild(title);
+    contentDiv.appendChild(title);
 
     //Create todo description element
     const description = document.createElement("p");
-    description.textContent = todo.description;
-    todosDiv.appendChild(description);
+    description.textContent = todo.description || "--";
+    contentDiv.appendChild(description);
 
     //Create todo dueDate element
     const dueDate = document.createElement("p");
     dueDate.textContent = `Due: ${todo.dueDate}`;
-    todosDiv.appendChild(dueDate);
+    contentDiv.appendChild(dueDate);
 
     //Create todo priority element
     const priority = document.createElement("p");
@@ -103,7 +107,11 @@ export function createTodoElement(todo, index) {
     //Create todo status element
     const status = document.createElement("p");
     status.textContent = todo.done ? "Done!" : "Not Done.";
-    todosDiv.appendChild(status);
+    contentDiv.appendChild(status);
+
+    //Create actions div
+    const actionsDiv = document.createElement("div");
+    actionsDiv.classList.add("todo-action");
 
     //Create todo edit button element
     const btnEdit = document.createElement("button");
@@ -115,7 +123,7 @@ export function createTodoElement(todo, index) {
       <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
       <path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
     </svg>`;
-    todosDiv.appendChild(btnEdit);
+    actionsDiv.appendChild(btnEdit);
 
     //Create todo remove button element
     const btnRemove = document.createElement("button");
@@ -126,7 +134,24 @@ export function createTodoElement(todo, index) {
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
         <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
     </svg>`;
-    todosDiv.appendChild(btnRemove);
+    actionsDiv.appendChild(btnRemove);
+
+    todosDiv.appendChild(contentDiv);
+    todosDiv.appendChild(actionsDiv);
 
     return todosDiv;
+}
+
+export function openTodoDetails(todo) {
+
+    //Select dialog
+    const dialog = document.querySelector("#todo-detail-dialog");
+
+    //Create Elements content
+    dialog.querySelector("#detail-title").textContent = todo.title;
+    dialog.querySelector("#detail-description").textContent = todo.description || "--";
+    dialog.querySelector("#detail-due-date").textContent = todo.dueDate || "--";
+    dialog.querySelector("#detail-priority").textContent = todo.priority || "--";
+
+    dialog.showModal();
 }

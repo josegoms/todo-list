@@ -2,7 +2,7 @@ import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 import { openProjectDialog, openTodoDialog } from "./dialogHandler.js";
-import { renderProjects, createTodoElement } from "./display.js";
+import { renderProjects, createTodoElement, openTodoDetails } from "./display.js";
 
 //Keep projects
 const projects = [];
@@ -20,12 +20,14 @@ function displayAllProjects() {
     container.querySelectorAll(".edit-project").forEach((btn) => {
         btn.addEventListener("click", () => {
             const index = btn.dataset.index;
+            const project = projects[index];
             openProjectDialog({
                 projectToEdit: projects[index],
                 onSubmit: ({name, description}) => {
                     project.name = name;
                     project.description = description;
                     displayAllProjects();
+                    displayWorkspace(project);
                 }
             });
         });
@@ -55,6 +57,10 @@ function displayWorkspace(project) {
     const container = document.querySelector("#workspace");
     container.innerHTML = "";
 
+    if (!project) {
+        return;
+    }
+
     //Project name
     const name = document.createElement("h2");
     name.textContent = project.name;
@@ -82,8 +88,10 @@ function displayWorkspace(project) {
         todosContainer.appendChild(todoElement);
     });
 
+    //Edit todo event listener
     todosContainer.querySelectorAll(".edit-todo").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
             const index = btn.dataset.index;
             openTodoDialog({
                 todoToEdit: project.todos[index],
@@ -99,20 +107,33 @@ function displayWorkspace(project) {
         });
     });
 
+    //Remove todo event listener
     todosContainer.querySelectorAll(".remove-todo").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
             const index = btn.dataset.index;
             project.removeTodo(index);
             displayWorkspace(project);
+            displayAllProjects();
         });
     });
 
+    //Open details event listener
+    todosContainer.querySelectorAll(".todo-content").forEach((element) => {
+        element.addEventListener("click", () => {
+            const index = element.parentNode.dataset.index;
+            openTodoDetails(project.todos[index]);
+        });
+    });
+
+    //Create todo event listener
     addButton.addEventListener("click", () => {
         openTodoDialog({
             onSubmit: ({title, description, dueDate, priority}) => {
                 const newTodo = new Todo(title, description, dueDate, priority);
                 project.addTodo(newTodo);
                 displayWorkspace(project);
+                displayAllProjects();
             }
         });
     });
