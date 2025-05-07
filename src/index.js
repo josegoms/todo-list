@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
-import { openProjectDialog } from "./dialogHandler.js";
+import { openProjectDialog, openTodoDialog } from "./dialogHandler.js";
 import { renderProjects, createTodoElement } from "./display.js";
 
 //Keep projects
@@ -82,24 +82,24 @@ function displayWorkspace(project) {
         todosContainer.appendChild(todoElement);
     });
 
-    todosContainer.querySelectorAll("edit-todo").forEach((btn) => {
+    todosContainer.querySelectorAll(".edit-todo").forEach((btn) => {
         btn.addEventListener("click", () => {
             const index = btn.dataset.index;
             openTodoDialog({
                 todoToEdit: project.todos[index],
-                onSubmit: ({title, description, dueDate, priority}) => {
+                onSubmit: ({ title, description, priority, dueDate }) => {
                     const todo = project.todos[index];
                     todo.title = title;
                     todo.description = description;
-                    todo.dueDate = dueDate;
                     todo.priority = priority;
+                    todo.dueDate = dueDate;
                     displayWorkspace(project);
                 }
             });
         });
     });
 
-    todosContainer.querySelectorAll(".remove-todo").foreach((btn) => {
+    todosContainer.querySelectorAll(".remove-todo").forEach((btn) => {
         btn.addEventListener("click", () => {
             const index = btn.dataset.index;
             project.removeTodo(index);
@@ -131,52 +131,3 @@ createProject.addEventListener("click", () => {
 });
 
 displayAllProjects();
-/*//Create todo
-const createTodo = document.querySelector(".create-task");
-createTodo.addEventListener("click", (event) => {
-
-    //Check selected project with all projects
-    const clickedProject = event.currentTarget;
-    const clickedName = clickedProject.parentNode.dataset.idName;
-    const matchingProjectIndex = projects.findIndex((project) => project.name === clickedName);
-    console.log(matchingProjectIndex);
-
-    //Call task dialog function
-    openTaskDialog(matchingProjectIndex);
-});
-
-function openTaskDialog(attachedProjectIndex) {
-
-    //Open dialog
-    const dialog = document.querySelector("#task-form");
-    dialog.showModal();
-
-    //Catch forms
-    const formsData = document.queySelector("#new-task");
-
-    //Collect submitted user data
-    formsData.addEventListener("submit", (event) => {
-
-        //Catch user input
-        const formData = new FormData(event.target);
-        const title = formData.get("task-name");
-        const description = formData.get("task-description");
-        const dueDate = formData.get("task-due-date");
-        const priority = formData.get("task-priority");
-
-
-        //Create new todo and append to respective project
-        const newTodo = new Todo(title, description, dueDate, priority, false);
-        projects[attachedProjectIndex].addTodo(newTodo);
-
-        //Re-render, reset forms, and close
-        displayProjects(projects, editCallback);
-        formsData.reset();
-        dialog.close();
-        
-    });
-
-    //Cancel dialog
-    const cancel = document.querySelector(".cancel");
-    cancel.addEventListener("click", () => dialog.close());
-}*/

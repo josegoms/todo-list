@@ -129,7 +129,8 @@ body {
     background-color: #333;
 }
 
-#project-form {
+#project-form,
+#todo-form {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -144,7 +145,8 @@ body {
   color: #E0E0E0;
 }
 
-#project-form input {
+#project-form input,
+#todo-form input {
   background-color: #2A2A2A;
   border: 1px solid #444;
   color: #E0E0E0;
@@ -152,35 +154,41 @@ body {
   padding: 0.5rem;
 }
 
-#project-form input:focus {
+#project-form input:focus,
+#todo-form input:focus {
   border-color: #2A2A2A;
   outline: none;
 }
 
-#project-form button {
+#project-form button,
+#todo-form button {
   border-radius: 6px;
   padding: 0.5rem 2rem;
   cursor: pointer;
   font-weight: 600;
 }
 
-#project-form button[type="submit"] {
+#project-form button[type="submit"],
+#todo-form button[type="submit"] {
   border: 1px solid #444;
   background-color: transparent;
   color: #E0E0E0;
 }
 
-#project-form button[type="submit"]:hover {
+#project-form button[type="submit"]:hover,
+#todo-form button[type="submit"]:hover {
   background-color: #333;
 }
 
-#project-form button.cancel {
+#project-form button.cancel,
+#todo-form button.cancel {
   border: none;
   background-color: red;
   color: #E0E0E0;
 }
 
-#new-project {
+#new-project,
+#new-todo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -191,7 +199,8 @@ body {
   margin-right: 2rem;
 }
 
-#new-project > div:nth-child(2) {
+#new-project > div:nth-child(2),
+#new-todo > div:nth-child(2) {
   display: flex;
   gap: 1rem;
 }

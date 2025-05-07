@@ -64,9 +64,7 @@ export function openTodoDialog({ todoToEdit = null, onSubmit}) {
     }
 
     //Catch user input 
-    formsData.addEventListener("submit", handleSubmit);
-
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         //Catch every input values
@@ -82,6 +80,8 @@ export function openTodoDialog({ todoToEdit = null, onSubmit}) {
         dialog.close();
         formsData.removeEventListener("submit", handleSubmit);
     }
+
+    formsData.addEventListener("submit", handleSubmit);
 
     //Cancel dialog
     const cancel = document.querySelector(".cancel");
