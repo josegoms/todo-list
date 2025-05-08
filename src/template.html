@@ -10,36 +10,31 @@
     <dialog id="project-form">
         <form method="dialog" id="new-project">
             <div>
-                <label for="project-name">Name:</label>
-                <input type="text" id="project-name" name="project-name" autofocus required>
-                <label for="project-description">Description:</label>
-                <input type="text" id="project-description" name="project-description">
+                <label>Name: <input type="text" id="project-name" name="project-name" autofocus required></label>
+                <label>Description: <input type="text" id="project-description" name="project-description"></label>
             </div>
             <div>
                 <button type="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
+                <button class="cancel" onclick="document.getElementById('project-form').close()">Cancel</button>
             </div>
         </form>
     </dialog>
     <dialog id="todo-form">
         <form method="dialog" id="new-todo">
             <div>
-                <label for="todo-name">Name:</label>
-                <input type="text" id="todo-name" name="todo-name" autofocus required>
-                <label for="todo-description">Description:</label>
-                <input type="text" id="todo-description" name="todo-description">
-                <label for="todo-priority">Priority:</label>
+                <label>Name: <input type="text" id="todo-name" name="todo-name" autofocus required></label>
+                <label>Description: <input type="text" id="todo-description" name="todo-description"></label>
+                <label>Priority: 
                 <select name="todo-priority" id="todo-priority">
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
                     <option value="low">Low</option>
-                </select>
-                <label for="todo-due-date">Due date:</label>
-                <input type="date" id="todo-due-date" name="todo-due-date">
+                </select></label>
+                <label>Due date: <input type="date" id="todo-due-date" name="todo-due-date"></label>
             </div>
             <div>
                 <button type="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
+                <button class="cancel" onclick="document.getElementById('todo-form').close()">Cancel</button>
             </div>
         </form>
     </dialog>

@@ -94,24 +94,50 @@ export function createTodoElement(todo, index) {
     description.textContent = todo.description || "--";
     contentDiv.appendChild(description);
 
+    //Create todo-meta div
+    const todoMeta = document.createElement("div");
+    todoMeta.classList.add("todo-meta");
+
     //Create todo dueDate element
     const dueDate = document.createElement("p");
-    dueDate.textContent = `Due: ${todo.dueDate}`;
-    contentDiv.appendChild(dueDate);
+    dueDate.textContent = todo.dueDate;
+    dueDate.classList.add("todo-date-display");
+    todoMeta.appendChild(dueDate);
 
     //Create todo priority element
-    const priority = document.createElement("p");
-    priority.textContent = `Priority: ${todo.priority}`;
-    contentDiv.appendChild(priority);
+    const priority = document.createElement("div");
+    priority.textContent = todo.priority;
+    if (todo.priority === "high") {
+        priority.style.color = "#F44336";
+        priority.style.border = "1px solid #F44336";
+    } else if (todo.priority === "medium") {
+        priority.style.color = "#FFC107";
+        priority.style.border = "1px solid #FFC107";
+    } else if (todo.priority === "low") {
+        priority.style.color = "#4CAF50";
+        priority.style.border = "1px solid #4CAF50";
+    }
+    priority.classList.add("todo-priority-display");
+    todoMeta.appendChild(priority);
 
     //Create todo status element
-    const status = document.createElement("p");
-    status.textContent = todo.done ? "Done!" : "Not Done.";
-    contentDiv.appendChild(status);
+    const status = document.createElement("button");
+    status.classList.add("done-toggle");
 
     //Create actions div
     const actionsDiv = document.createElement("div");
     actionsDiv.classList.add("todo-action");
+
+    //Create todo remove button element
+    const btnRemove = document.createElement("button");
+    btnRemove.classList.add("remove-todo");
+    btnRemove.title = "Remove Todo";
+    btnRemove.dataset.index = index;
+    btnRemove.innerHTML = `
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+    </svg>`;
+    actionsDiv.appendChild(btnRemove);
 
     //Create todo edit button element
     const btnEdit = document.createElement("button");
@@ -125,17 +151,8 @@ export function createTodoElement(todo, index) {
     </svg>`;
     actionsDiv.appendChild(btnEdit);
 
-    //Create todo remove button element
-    const btnRemove = document.createElement("button");
-    btnRemove.classList.add("remove-todo");
-    btnRemove.title = "Remove Todo";
-    btnRemove.dataset.index = index;
-    btnRemove.innerHTML = `
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-        <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-    </svg>`;
-    actionsDiv.appendChild(btnRemove);
-
+    todosDiv.appendChild(status);
+    contentDiv.appendChild(todoMeta);
     todosDiv.appendChild(contentDiv);
     todosDiv.appendChild(actionsDiv);
 

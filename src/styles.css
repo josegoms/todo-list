@@ -134,7 +134,7 @@ body {
   transform: translate(-50%, -50%);
   width: max-content;
   background-color: #1A1A1A;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 12px;
   border: none;
   box-shadow: 0 0 20px rgba(0,0,0,0.8);
@@ -143,12 +143,14 @@ body {
 }
 
 #project-form input,
-#todo-form input {
+#todo-form input,
+option {
   background-color: #2A2A2A;
   border: 1px solid #444;
   color: #E0E0E0;
   border-radius: 6px;
   padding: 0.5rem;
+  font-weight: normal;
 }
 
 #project-form input:focus,
@@ -162,6 +164,10 @@ body {
   border-radius: 6px;
   padding: 0.5rem 2rem;
   cursor: pointer;
+  font-weight: 600;
+}
+
+label {
   font-weight: 600;
 }
 
@@ -189,11 +195,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
-#new-project #project-name {
-  margin-right: 2rem;
+#new-project > div:first-child,
+#new-todo > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 #new-project > div:nth-child(2),
@@ -250,7 +260,8 @@ body {
   font-weight: 600;
 }
 
-.project p {
+.project p,
+.todo-content p {
   font-size: 0.8rem;
   color: #A0A0A0;
   line-height: 1.4;
@@ -259,6 +270,9 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.project p {
   max-width: 10rem;
 }
 
@@ -309,11 +323,11 @@ body {
   padding: 16px;
   margin-bottom: 12px;
   border-radius: 8px;
-  color: #DADADA;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   transition: background 0.2s ease;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
 .todo:hover {
@@ -321,5 +335,83 @@ body {
 }
 
 .todo-action {
-  border-left: 1px solid #2A2A2A;
+  margin-left: 0.5rem;
+}
+
+.todo-content {
+  border-right: 1px solid #333;
+  border-left: 1px solid #333;
+  flex: 1;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.todo-content > h3 {
+  color: #DADADA;
+}
+
+.todo-meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-right: 1rem;
+}
+
+.todo-date-display,
+.todo-priority-display {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.todo-date-display {
+  border: 1px solid #888;
+  color: #BBB;
+}
+
+.todo-priority-display {
+  border: 1px solid #FFC107;
+  color: #FFC107;
+}
+
+.done-toggle {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid #888;
+  background: transparent;
+  color: #888;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+
+  align-self: center;
+  margin-right: 0.5rem;
+}
+
+.done-toggle::after {
+  content: "✔️";
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.done-toggle.done::after {
+  opacity: 1;
+}
+
+.todo-content .done {
+  text-decoration: line-through;
+  color: #666;
 }

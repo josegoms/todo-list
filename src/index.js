@@ -126,6 +126,24 @@ function displayWorkspace(project) {
         });
     });
 
+    todosContainer.querySelectorAll(".done-toggle").forEach((element) => {
+        element.addEventListener("click", () => {
+            const todoItem = element.closest(".todo");
+            const index = todoItem.dataset.index;
+            const todo = project.todos[index];
+            todo.toggleDone();
+
+            const contentElements = todoItem.querySelectorAll(".todo-content *");
+            if (todo.done === true) {
+                element.classList.add("done");
+                contentElements.forEach((el) => el.classList.add("done"));
+            } else {
+                element.classList.remove("done");
+                contentElements.forEach((el) => el.classList.remove("done"));
+            }
+        });
+    });
+
     //Create todo event listener
     addButton.addEventListener("click", () => {
         openTodoDialog({
