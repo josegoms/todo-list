@@ -72,6 +72,20 @@ export function renderProjects(projects) {
     return fragment;
 }
 
+//Get right time by timezone
+export function getLocalTodayString() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().split("T")[0];
+}
+
+function getLocalTomorrowString() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    now.setDate(now.getDate() + 1);
+    return now.toISOString().split("T")[0];
+}
+
 //Create todos
 export function createTodoElement(todo, index) {
 
@@ -100,7 +114,17 @@ export function createTodoElement(todo, index) {
 
     //Create todo dueDate element
     const dueDate = document.createElement("p");
-    dueDate.textContent = todo.dueDate;
+    const today = getLocalTodayString();
+    const tomorrow = getLocalTomorrowString();
+    if (todo.dueDate === today) {
+        dueDate.textContent = "today";
+    } else if (todo.dueDate === tomorrow) {
+        dueDate.textContent = "tomorrow";
+    } else if (todo.dueDate < today) {
+        dueDate.textContent = "overdue";
+    } else {
+        dueDate.textContent = todo.dueDate;
+    }
     dueDate.classList.add("todo-date-display");
     todoMeta.appendChild(dueDate);
 

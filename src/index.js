@@ -2,7 +2,7 @@ import "./styles.css";
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 import { openProjectDialog, openTodoDialog } from "./dialogHandler.js";
-import { renderProjects, createTodoElement, openTodoDetails } from "./display.js";
+import { renderProjects, createTodoElement, openTodoDetails, getLocalTodayString } from "./display.js";
 
 //Keep projects
 const projects = [];
@@ -182,13 +182,6 @@ createProject.addEventListener("click", () => {
         }
     });
 });
-
-//Get right time by timezone
-function getLocalTodayString() {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    return now.toISOString().split("T")[0];
-}
 
 function handleDefault(e) {
 

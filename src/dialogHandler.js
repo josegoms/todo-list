@@ -6,7 +6,9 @@ export function openProjectDialog({ projectToEdit = null, onSubmit }) {
 
     //Select input areas
     const projectName = document.querySelector("#project-name");
+    projectName.maxLength = 50;
     const projectDescription = document.querySelector("#project-description");
+    projectDescription.maxLength = 100;
     const formsData = document.querySelector("#new-project");
 
     //Pre-fill form if editing
@@ -54,7 +56,9 @@ export function openTodoDialog({ todoToEdit = null, onSubmit}) {
 
     //Select input areas
     const todoTitle = document.querySelector("#todo-name");
+    todoTitle.maxLength = 50;
     const todoDescription = document.querySelector("#todo-description");
+    todoDescription.maxLength = 100;
     const todoPriority = document.querySelector("#todo-priority");
     const todoDueDate = document.querySelector("#todo-due-date");
     const formsData = document.querySelector("#new-todo");
