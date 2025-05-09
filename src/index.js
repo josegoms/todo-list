@@ -51,6 +51,76 @@ function displayAllProjects() {
     });
 }
 
+function renderTodos(todos, workspaceCallback) {
+
+    //Create fragment
+    const fragment = document.createDocumentFragment();
+
+    //Loop over todos
+    todos.forEach((todo, index) => {
+        const todoElement = createTodoElement(todo, index);
+        fragment.appendChild(todoElement);
+    });
+
+    //Edit todo event listener
+    fragment.querySelectorAll(".edit-todo").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const index = btn.dataset.index;
+            openTodoDialog({
+                todoToEdit: todos[index],
+                onSubmit: ({ title, description, priority, dueDate }) => {
+                    const todo = todos[index];
+                    todo.title = title;
+                    todo.description = description;
+                    todo.priority = priority;
+                    todo.dueDate = dueDate;
+                    workspaceCallback();
+                }
+            });
+        });
+    });
+
+    //Remove todo event listener
+    fragment.querySelectorAll(".remove-todo").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const index = btn.dataset.index;
+            todos.splice(index, 1);
+            workspaceCallback();
+            displayAllProjects();
+        });
+    });
+
+    //Open details event listener
+    fragment.querySelectorAll(".todo-content").forEach((element) => {
+        element.addEventListener("click", () => {
+            const index = element.parentNode.dataset.index;
+            openTodoDetails(todos[index]);
+        });
+    });
+
+    fragment.querySelectorAll(".done-toggle").forEach((element) => {
+        element.addEventListener("click", () => {
+            const todoItem = element.closest(".todo");
+            const index = todoItem.dataset.index;
+            const todo = todos[index];
+            todo.toggleDone();
+
+            const contentElements = todoItem.querySelectorAll(".todo-content *");
+            if (todo.done === true) {
+                element.classList.add("done");
+                contentElements.forEach((el) => el.classList.add("done"));
+            } else {
+                element.classList.remove("done");
+                contentElements.forEach((el) => el.classList.remove("done"));
+            }
+        });
+    });
+
+    return fragment;
+}
+
 function displayWorkspace(project) {
 
     //Select main container
@@ -77,73 +147,6 @@ function displayWorkspace(project) {
     addButton.textContent = " + Add Todo";
     container.appendChild(addButton);
 
-    //Create todos container
-    const todosContainer = document.createElement("div");
-    todosContainer.classList.add("todos-container");
-    container.appendChild(todosContainer);
-
-    //Loop over todos
-    project.todos.forEach((todo, index) => {
-        const todoElement = createTodoElement(todo, index);
-        todosContainer.appendChild(todoElement);
-    });
-
-    //Edit todo event listener
-    todosContainer.querySelectorAll(".edit-todo").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const index = btn.dataset.index;
-            openTodoDialog({
-                todoToEdit: project.todos[index],
-                onSubmit: ({ title, description, priority, dueDate }) => {
-                    const todo = project.todos[index];
-                    todo.title = title;
-                    todo.description = description;
-                    todo.priority = priority;
-                    todo.dueDate = dueDate;
-                    displayWorkspace(project);
-                }
-            });
-        });
-    });
-
-    //Remove todo event listener
-    todosContainer.querySelectorAll(".remove-todo").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const index = btn.dataset.index;
-            project.removeTodo(index);
-            displayWorkspace(project);
-            displayAllProjects();
-        });
-    });
-
-    //Open details event listener
-    todosContainer.querySelectorAll(".todo-content").forEach((element) => {
-        element.addEventListener("click", () => {
-            const index = element.parentNode.dataset.index;
-            openTodoDetails(project.todos[index]);
-        });
-    });
-
-    todosContainer.querySelectorAll(".done-toggle").forEach((element) => {
-        element.addEventListener("click", () => {
-            const todoItem = element.closest(".todo");
-            const index = todoItem.dataset.index;
-            const todo = project.todos[index];
-            todo.toggleDone();
-
-            const contentElements = todoItem.querySelectorAll(".todo-content *");
-            if (todo.done === true) {
-                element.classList.add("done");
-                contentElements.forEach((el) => el.classList.add("done"));
-            } else {
-                element.classList.remove("done");
-                contentElements.forEach((el) => el.classList.remove("done"));
-            }
-        });
-    });
-
     //Create todo event listener
     addButton.addEventListener("click", () => {
         openTodoDialog({
@@ -155,6 +158,17 @@ function displayWorkspace(project) {
             }
         });
     });
+
+    //Create todos container
+    const todosContainer = document.createElement("div");
+    todosContainer.classList.add("todos-container");
+
+    //Get done todos
+    const workspaceCallback = () => displayWorkspace(project);
+    const doneTodos = renderTodos(project.todos, workspaceCallback);
+
+    todosContainer.appendChild(doneTodos);
+    container.appendChild(todosContainer);
 }
 
 //Create project button
@@ -168,5 +182,50 @@ createProject.addEventListener("click", () => {
         }
     });
 });
+
+//Get right time by timezone
+function getLocalTodayString() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().split("T")[0];
+}
+
+function handleDefault(e) {
+
+    //Group all todos
+    let newTodos;
+    if (e === "all") {
+        newTodos = projects.flatMap((p) => p.todos);
+    } else if (e === "today") {
+        const today = getLocalTodayString();
+        console.log(today);
+        newTodos = projects.flatMap(p => p.todos).filter(todo => todo.dueDate === today);
+    }
+
+    const test = projects.flatMap((p) => p.todos).map(todo => todo.dueDate);
+    console.log(test);
+
+    //Select main container
+    const container = document.querySelector("#workspace");
+    container.innerHTML = "";
+
+    //Create todos container
+    const todosContainer = document.createElement("div");
+    todosContainer.classList.add("todos-container");
+
+    //Get done todos
+    const workspaceCallback = () => handleDefault(e);
+    const doneTodos = renderTodos(newTodos, workspaceCallback);
+
+    todosContainer.appendChild(doneTodos);
+    container.appendChild(todosContainer);
+}
+
+//All visualization
+const all = document.querySelector("#all");
+all.addEventListener("click", (event) => handleDefault(event.target.id));
+
+const today = document.querySelector("#today");
+today.addEventListener("click", (event) => handleDefault(event.target.id));
 
 displayAllProjects();

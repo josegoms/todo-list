@@ -34,6 +34,16 @@ export function openProjectDialog({ projectToEdit = null, onSubmit }) {
         dialog.close();
         formsData.removeEventListener("submit", handleSubmit);
     };
+
+    //Cancel button
+    const cancel = dialog.querySelector(".cancel");
+    const handleCancel = () => {
+        dialog.close();
+        formsData.removeEventListener("submit", handleSubmit);
+        cancel.removeEventListener("click", handleCancel);
+    };
+
+    cancel.addEventListener("click", handleCancel);
 }
 
 export function openTodoDialog({ todoToEdit = null, onSubmit}) {
@@ -78,4 +88,14 @@ export function openTodoDialog({ todoToEdit = null, onSubmit}) {
     }
 
     formsData.addEventListener("submit", handleSubmit);
+
+    //Cancel button
+    const cancel = dialog.querySelector(".cancel");
+    const handleCancel = () => {
+        dialog.close();
+        formsData.removeEventListener("submit", handleSubmit);
+        cancel.removeEventListener("click", handleCancel);
+    };
+
+    cancel.addEventListener("click", handleCancel);
 }
