@@ -144,7 +144,7 @@ body {
 
 #project-form input,
 #todo-form input,
-option {
+select {
   background-color: #2A2A2A;
   border: 1px solid #444;
   color: #E0E0E0;
@@ -153,10 +153,25 @@ option {
   font-weight: normal;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+}
+
 #project-form input:focus,
-#todo-form input:focus {
+#todo-form input:focus,
+select:focus {
   border-color: #2A2A2A;
   outline: none;
+}
+
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+
+  padding: 10px;
+  transition: 0.4s;
 }
 
 #project-form button,
