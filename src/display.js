@@ -193,6 +193,7 @@ export function openTodoDetails(todo) {
     dialog.querySelector("#detail-description").textContent = todo.description || "--";
     dialog.querySelector("#detail-due-date").textContent = todo.dueDate || "--";
     dialog.querySelector("#detail-priority").textContent = todo.priority || "--";
+    dialog.querySelector("#detail-done").textContent = todo.done;
 
     dialog.showModal();
 }

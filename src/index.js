@@ -118,6 +118,22 @@ function renderTodos(todos, workspaceCallback) {
         });
     });
 
+    fragment.querySelectorAll(".todo").forEach((element) => {
+        element.addEventListener("DOMContentLoaded", () => {
+            const index = element.dataset.index;
+            const todo = todos[index];
+
+            const contentElements = element.querySelectorAll(".todo-content *");
+            if (todo.done === true) {
+                element.classList.add("done");
+                contentElements.forEach((el) => el.classList.add("done"));
+            } else {
+                element.classList.remove("done");
+                contentElements.forEach((el) => el.classList.remove("done"));
+            }
+        });
+    });
+
     return fragment;
 }
 
@@ -191,12 +207,8 @@ function handleDefault(e) {
         newTodos = projects.flatMap((p) => p.todos);
     } else if (e === "today") {
         const today = getLocalTodayString();
-        console.log(today);
         newTodos = projects.flatMap(p => p.todos).filter(todo => todo.dueDate === today);
     }
-
-    const test = projects.flatMap((p) => p.todos).map(todo => todo.dueDate);
-    console.log(test);
 
     //Select main container
     const container = document.querySelector("#workspace");
