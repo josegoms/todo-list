@@ -175,6 +175,16 @@ export function createTodoElement(todo, index) {
     </svg>`;
     actionsDiv.appendChild(btnEdit);
 
+    //Check if todo is done or not
+    if (todo.done === true) {
+        status.classList.add("done");
+        todoMeta.classList.add("done");
+        priority.classList.add("done");
+        dueDate.classList.add("done");
+        title.classList.add("done");
+        description.classList.add("done");
+    }
+
     todosDiv.appendChild(status);
     contentDiv.appendChild(todoMeta);
     todosDiv.appendChild(contentDiv);
