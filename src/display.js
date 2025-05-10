@@ -116,7 +116,10 @@ export function createTodoElement(todo, index) {
     const dueDate = document.createElement("p");
     const today = getLocalTodayString();
     const tomorrow = getLocalTomorrowString();
-    if (todo.dueDate === today) {
+
+    if (todo.dueDate === "") {
+        dueDate.textContent = "no date";
+    } else if (todo.dueDate === today) {
         dueDate.textContent = "today";
     } else if (todo.dueDate === tomorrow) {
         dueDate.textContent = "tomorrow";
