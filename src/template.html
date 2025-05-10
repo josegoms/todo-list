@@ -39,12 +39,13 @@
         </form>
     </dialog>
     <dialog id="todo-detail-dialog">
-        <h2 id="detail-title"></h2>
-        <p><strong>Description: </strong><span id="detail-description"></span></p>
-        <p><strong>Due date: </strong><span id="detail-due-date"></span></p>
-        <p><strong>Priority: </strong><span id="detail-priority"></span></p>
-        <p><strong>Done: </strong><span id="detail-done"></span></p>
-        <button onclick="document.getElementById('todo-detail-dialog').close()">Close</button>
+        <div>
+            <button onclick="document.getElementById('todo-detail-dialog').close()">X</button>
+            <h2 id="detail-title"></h2>
+            <p><strong>Description: </strong><span id="detail-description"></span></p>
+            <p><strong>Due date: </strong><span id="detail-due-date"></span></p>
+            <p><strong>Priority: </strong><span id="detail-priority"></span></p>
+        </div>
     </dialog>
     <div id="sidebar">
         <div id="logo"><img src="./assets/Logo_Minimalista_de_Produtividade-removebg-preview.png" alt="Logo"></div>

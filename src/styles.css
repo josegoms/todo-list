@@ -134,12 +134,16 @@ body {
   transform: translate(-50%, -50%);
   width: max-content;
   background-color: #1A1A1A;
-  padding: 3rem;
   border-radius: 12px;
   border: none;
   box-shadow: 0 0 20px rgba(0,0,0,0.8);
   z-index: 1000;
   color: #E0E0E0;
+}
+
+#project-form,
+#todo-form {
+  padding: 3rem;
 }
 
 #project-form input,
@@ -405,11 +409,6 @@ label {
   color: #BBB;
 }
 
-.todo-priority-display {
-  border: 1px solid #FFC107;
-  color: #FFC107;
-}
-
 .done-toggle {
   width: 1.5rem;
   height: 1.5rem;
@@ -444,4 +443,34 @@ label {
 .todo-content .done {
   text-decoration: line-through;
   color: #666;
+}
+
+#todo-detail-dialog div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+#todo-detail-dialog #detail-description,
+#todo-detail-dialog #detail-due-date,
+#todo-detail-dialog #detail-priority {
+  color: #A0A0A0;
+}
+
+#todo-detail-dialog button {
+  background-color: transparent;
+  color: #A0A0A0;
+  border: none;
+  border-radius: 60%;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: bold;
+
+  align-self: flex-end;
+}
+
+#todo-detail-dialog button:hover {
+  background-color: red;
+  color: #E0E0E0;
 }
