@@ -5,7 +5,51 @@ import { openProjectDialog, openTodoDialog } from "./dialogHandler.js";
 import { renderProjects, createTodoElement, openTodoDetails, getLocalTodayString } from "./display.js";
 
 //Keep projects
-const projects = [];
+let projects = loadFromLocalStorage();
+
+//Save data to local storage
+function saveToLocalStorage() {
+    localStorage.setItem("projects", JSON.stringify(projects));
+}
+
+//Retrieve data from local storage
+function loadFromLocalStorage() {
+    const loadedProjects = [];
+    const storedUserData = localStorage.getItem("projects");
+
+    //Check if there's data available
+    if (storedUserData) {
+        const userData = JSON.parse(storedUserData);
+
+        //Loop over projects array and recreate projects class and todos class
+        userData.forEach((project) => {
+
+            //Save retrieved todos
+            const savedTodos = project.todos;
+
+            //Recreate project class
+            const recreatedProject = new Project(project.name, project.description);
+
+            if (savedTodos) {
+                savedTodos.forEach((todo) => {
+
+                    //Recreate todo class
+                    const recreatedTodo = new Todo(todo.title, todo.description, todo.dueDate, todo.priority);
+
+                    //Append to the respective project
+                    recreatedProject.addTodo(recreatedTodo);
+                });
+            } else {
+                return [];
+            }
+            loadedProjects.push(recreatedProject);
+        });   
+    } else {
+        return [];
+    }
+
+    return loadedProjects;
+}
 
 function displayAllProjects() {
     //Select DOM container
@@ -26,6 +70,7 @@ function displayAllProjects() {
                 onSubmit: ({name, description}) => {
                     project.name = name;
                     project.description = description;
+                    saveToLocalStorage();
                     displayAllProjects();
                     displayWorkspace(project);
                 }
@@ -38,6 +83,7 @@ function displayAllProjects() {
         btn.addEventListener("click", () => {
             const index = btn.dataset.index;
             projects.splice(index, 1);
+            saveToLocalStorage();
             displayAllProjects();
         });
     });
@@ -75,6 +121,7 @@ function renderTodos(todos, workspaceCallback) {
                     todo.description = description;
                     todo.priority = priority;
                     todo.dueDate = dueDate;
+                    saveToLocalStorage();
                     workspaceCallback();
                 }
             });
@@ -87,6 +134,7 @@ function renderTodos(todos, workspaceCallback) {
             e.stopPropagation();
             const index = btn.dataset.index;
             todos.splice(index, 1);
+            saveToLocalStorage();
             workspaceCallback();
             displayAllProjects();
         });
@@ -115,6 +163,7 @@ function renderTodos(todos, workspaceCallback) {
                 element.classList.remove("done");
                 contentElements.forEach((el) => el.classList.remove("done"));
             }
+            saveToLocalStorage();
         });
     });
 
@@ -169,6 +218,7 @@ function displayWorkspace(project) {
             onSubmit: ({title, description, dueDate, priority}) => {
                 const newTodo = new Todo(title, description, dueDate, priority);
                 project.addTodo(newTodo);
+                saveToLocalStorage();
                 displayWorkspace(project);
                 displayAllProjects();
             }
@@ -194,6 +244,7 @@ createProject.addEventListener("click", () => {
         onSubmit: ({name, description}) => {
             const newProject = new Project(name, description);
             projects.push(newProject);
+            saveToLocalStorage();
             displayAllProjects();
         }
     });
