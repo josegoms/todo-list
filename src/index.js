@@ -35,6 +35,7 @@ function loadFromLocalStorage() {
 
                     //Recreate todo class
                     const recreatedTodo = new Todo(todo.title, todo.description, todo.dueDate, todo.priority);
+                    recreatedTodo.done = todo.done;
 
                     //Append to the respective project
                     recreatedProject.addTodo(recreatedTodo);
