@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="1d678156b38ee8675c9a.png">
+    <title>Todo</title>
+<script defer src="main.js"></script></head>
+<body>
+    <dialog id="project-form">
+        <form method="dialog" id="new-project">
+            <div>
+                <label>Name: <input type="text" id="project-name" name="project-name" autofocus required></label>
+                <label>Description: <input type="text" id="project-description" name="project-description"></label>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="todo-form">
+        <form method="dialog" id="new-todo">
+            <div>
+                <label>Name: <input type="text" id="todo-name" name="todo-name" autofocus required></label>
+                <label>Description: <input type="text" id="todo-description" name="todo-description"></label>
+                <label>Priority: 
+                <select name="todo-priority" id="todo-priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select></label>
+                <label>Due date: <input type="date" id="todo-due-date" name="todo-due-date"></label>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="todo-detail-dialog">
+        <div>
+            <button onclick="document.getElementById('todo-detail-dialog').close()">X</button>
+            <h2 id="detail-title"></h2>
+            <p><strong>Description: </strong><span id="detail-description"></span></p>
+            <p><strong>Due date: </strong><span id="detail-due-date"></span></p>
+            <p><strong>Priority: </strong><span id="detail-priority"></span></p>
+        </div>
+    </dialog>
+    <div id="sidebar">
+        <div id="logo"><img src="2fbb15f9baad9e76a0a2.png" alt="Logo"></div>
+        <div id="default">
+            <button id="all">All</button>
+            <button id="today">Today</button>
+        </div>
+        <p>My projects</p>
+        <button id="create-project">+</button>
+        <div id="projects-container"></div>
+    </div>
+    <div id="workspace">
+    </div>
+</body>
+</html>
